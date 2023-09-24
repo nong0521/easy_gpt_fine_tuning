@@ -1,11 +1,14 @@
 import streamlit as st
 from view import auto_dataset_producter_page, saved_dataset_page,fine_tuning_page, setting_api_page, document_page
+from model import DatasetModel
 
 def main():
     st.set_page_config(
         page_title="簡単ファインチューニング",
         page_icon="🧊",
     )
+
+    model = DatasetModel()
 
     if 'page' not in st.session_state:
         st.session_state['page'] = 'Dataset作成'
@@ -45,12 +48,22 @@ def main():
 
     st.sidebar.title("メニュー")
 
-    if st.sidebar.button('Dataset作成'):
-        st.session_state['page'] = 'Dataset作成'
-    if st.sidebar.button('Dataset編集'):
-        st.session_state['page'] = 'Dataset編集'
-    if st.sidebar.button('ファインチューニング'):
-        st.session_state['page'] = 'ファインチューニング'
+    if model.is_valid_openai_key(model.load_api_key()):
+        default_page = 'Dataset作成'
+    else:
+        default_page = 'API設定'
+
+    if 'page' not in st.session_state:
+        st.session_state['page'] = default_page
+
+    if model.is_valid_openai_key(model.load_api_key()):
+        if st.sidebar.button('Dataset作成'):
+            st.session_state['page'] = 'Dataset作成'
+        if st.sidebar.button('Dataset編集'):
+            st.session_state['page'] = 'Dataset編集'
+        if st.sidebar.button('ファインチューニング'):
+            st.session_state['page'] = 'ファインチューニング'
+    
     if st.sidebar.button('API設定'):
         st.session_state['page'] = 'API設定'
     if st.sidebar.button('ドキュメント'):
