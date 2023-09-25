@@ -202,47 +202,46 @@ def document_page():
 
     st.header("このアプリケーションの使い方")
     st.subheader("Step1: API keyの設定")
-    st.write("""サイドメニューのAPI設定をクリックし、OpenAIのAPI keyを入力してください。
-API keyはOpenAIの公式サイトより取得できます。https://platform.openai.com/overview
-アカウントを作成し、自分の名前のマークの入ったボタンをクリックし、その中の"View API keys"をクリックします。https://platform.openai.com/account/api-keys
-"Create new secret keys"を押して、API keyを作成してください。作成したAPI keyをコピーして、どこかに保存しておいてください。
-また作成したAPI keyは誰にも教えないようにして下さい。
-続いて左のサイドメニューより"Billing"をクリックして"Start payment plan"をクリックして、支払い方法を登録してください。https://platform.openai.com/account/billing/overview
-"Billing"の中の"Usage limits"より、1か月のAPI利用料金の上限を設定することができます。https://platform.openai.com/account/billing/limits
-左のサイドメニューの"Usage"より、今までのAPI利用料金を確認することができます。https://platform.openai.com/account/usage
-ファインチューニングされたモデルは通常のgpt-3.5-turboのAPI料金の8倍の料金がかかります。
-またファインチューニング自体にも料金がかかります。
-以下のOpenAI公式URLより料金を確認してください。
-https://openai.com/pricing""")
+    st.write("サイドメニューのAPI設定をクリックし、OpenAIのAPI keyを入力してください。")
+    st.write("API keyはOpenAIの公式サイトより取得できます。https://platform.openai.com/overview")
+    st.write("""アカウントを作成し、自分の名前のマークの入ったボタンをクリックし、その中の"View API keys"をクリックします。https://platform.openai.com/account/api-keys""")
+    st.write("""Create new secret keys"を押して、API keyを作成してください。作成したAPI keyをコピーして、どこかに保存しておいてください。""")
+    st.write("また作成したAPI keyは誰にも教えないようにして下さい。")
+    st.write("""続いて左のサイドメニューより"Billing"をクリックして"Start payment plan"をクリックして、支払い方法を登録してください。https://platform.openai.com/account/billing/overview""")
+    st.write("""Billing"の中の"Usage limits"より、1か月のAPI利用料金の上限を設定することができます。https://platform.openai.com/account/billing/limits""")
+    st.write("""左のサイドメニューの"Usage"より、今までのAPI利用料金を確認することができます。https://platform.openai.com/account/usage""")
+    st.write("ファインチューニングされたモデルは通常のgpt-3.5-turboのAPI料金の8倍の料金がかかります。")
+    st.write("またファインチューニング自体にも料金がかかります。")
+    st.write("以下のOpenAI公式URLより料金を確認してください。")
+    st.write("https://openai.com/pricing")
+    st.write()
     st.subheader("Step2: Datasetの作成")
-    st.write("""サイドメニューのDataset作成をクリックし、user messagesのルールを決めてください。
-ex.)日本語、一人称が朕
-
-すると、user messagesが自動で作成されますので、それを確認して自分好みに編集してください。
-編集が終わったら、どのような返答をしてほしいか考えて、system messageとuser messageを入力してください。どちらかにかならず{message}を入れてください。
-{message}にはuser messagesが入ります。
-ex.)
-system message: userが天皇陛下であるように会話に応答します。
-user message: {message}
-
-これでDatasetの一案が提案されます。これも自分好みに編集してください。
-Datasetを追加ボタンを押すと、Datasetが追加されます。
-さらにDatasetを追加したい場合はStep2を上から繰り返してください。
-Datasetを10個以上作成したら、Datasetの名前を入力して、Datasetを保存ボタンを押してください。
-作ったDatasetはDataset編集で編集することができます。""")
-    
+    st.write("サイドメニューのDataset作成をクリックし、user messagesのルールを決めてください。")
+    st.write("ex.)日本語、一人称が朕")
+    st.write()
+    st.write("すると、user messagesが自動で作成されますので、それを確認して自分好みに編集してください。")
+    st.write("編集が終わったら、どのような返答をしてほしいか考えて、system messageとuser messageを入力してください。どちらかにかならず{message}を入れてください。")
+    st.write("{message}にはuser messagesが入ります。")
+    st.write("ex.)")
+    st.write("system message: userが天皇陛下であるように会話に応答します。")
+    st.write("user message: {message}")
+    st.write()
+    st.write("これでDatasetの一案が提案されます。これも自分好みに編集してください。")
+    st.write("Datasetを追加ボタンを押すと、Datasetが追加されます。")
+    st.write("さらにDatasetを追加したい場合はStep2を上から繰り返してください。")
+    st.write("Datasetを10個以上作成したら、Datasetの名前を入力して、Datasetを保存ボタンを押してください。")
+    st.write("作ったDatasetはDataset編集で編集することができます。")
+    st.write()
     st.subheader("Step3: ファインチューニング")
-    st.write("""サイドメニューのファインチューニングをクリックし、ファインチューニングするモデルを選択してください。
-使用するDatasetを選択し、ファインチューニングするモデルを選択してください。
-ファインチューニングの回数を選択してください。これで学習回数が決定します。
-ファインチューニング後のモデルの名称を入力してください。
-ファインチューニングを開始ボタンを押すと、ファインチューニングが開始されます。
-ファインチューニングには10分以上時間がかかることもありますので、しばらくお待ちください。
-statusの確認ボタンを押すと現在の状態を確認でき、runnningであれば実行途中、succeededであれば実行完了です。
-モデルを削除ボタンで選択したモデルを削除することができます。
-""")
-
+    st.write("サイドメニューのファインチューニングをクリックし、ファインチューニングするモデルを選択してください。")
+    st.write("使用するDatasetを選択し、ファインチューニングするモデルを選択してください。")
+    st.write("ファインチューニングの回数を選択してください。これで学習回数が決定します。")
+    st.write("ファインチューニング後のモデルの名称を入力してください。")
+    st.write("ファインチューニングを開始ボタンを押すと、ファインチューニングが開始されます。")
+    st.write("ファインチューニングには10分以上時間がかかることもありますので、しばらくお待ちください。")
+    st.write("statusの確認ボタンを押すと現在の状態を確認でき、runnningであれば実行途中、succeededであれば実行完了です。")
+    st.write("モデルを削除ボタンで選択したモデルを削除することができます。")
+    st.write()
     st.subheader("Step4: Playgroundで利用する")
-    st.write("""作成したファインチューニングモデルはOpenAI公式のPlaygroundで使用することができます。https://platform.openai.com/playground
-右側のModel選択から使用するファインチューンされたモデルを選択すると、Playgroundで使用することができます。
-""")
+    st.write("作成したファインチューニングモデルはOpenAI公式のPlaygroundで使用することができます。https://platform.openai.com/playground")
+    st.write("右側のModel選択から使用するファインチューンされたモデルを選択すると、Playgroundで使用することができます。")
