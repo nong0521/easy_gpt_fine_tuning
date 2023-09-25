@@ -195,7 +195,6 @@ def setting_api_page():
     if st.button("Save OpenAI API key!"):
         vm.on_save_api_key_clicked(api_key)
         st.session_state['api_key'] = api_key
-        st.experimental_rerun()
 
 def document_page():
     st.title("使い方")
