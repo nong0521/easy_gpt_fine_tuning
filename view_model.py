@@ -15,7 +15,6 @@ class DatasetViewModel:
     def __init__(self):
         self.model = DatasetModel()
         self.api_key = self.model.api_key
-        print(self.api_key)
 
     def on_save_api_key_clicked(self, api_key):
         self.api_key = api_key

@@ -10,9 +10,6 @@ def main():
 
     model = DatasetModel()
 
-    if 'page' not in st.session_state:
-        st.session_state['page'] = 'Dataset作成'
-
     if 'user messages saved' not in st.session_state:
         st.session_state['user messages saved'] = False
 
@@ -46,9 +43,15 @@ def main():
     if 'model_name' not in st.session_state:
         st.session_state['model_name'] = ''
 
+    if 'loaded api key' not in st.session_state:
+        st.session_state['loaded api key'] = model.load_api_key()
+
+    if 'is valid openai key' not in st.session_state:
+        st.session_state['is valid openai key'] = model.is_valid_openai_key(st.session_state['loaded api key'])
+
     st.sidebar.title("メニュー")
 
-    if model.is_valid_openai_key(model.load_api_key()):
+    if st.session_state['is valid openai key']:
         default_page = 'Dataset作成'
     else:
         default_page = 'API設定'
@@ -56,7 +59,7 @@ def main():
     if 'page' not in st.session_state:
         st.session_state['page'] = default_page
 
-    if model.is_valid_openai_key(model.load_api_key()):
+    if st.session_state['is valid openai key']:
         if st.sidebar.button('Dataset作成'):
             st.session_state['page'] = 'Dataset作成'
         if st.sidebar.button('Dataset編集'):
