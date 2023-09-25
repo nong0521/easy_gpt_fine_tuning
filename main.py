@@ -54,7 +54,7 @@ def main():
     if st.session_state['is valid openai key']:
         default_page = 'Dataset作成'
     else:
-        default_page = 'API設定'
+        default_page = '使い方'
 
     if 'page' not in st.session_state:
         st.session_state['page'] = default_page
@@ -69,8 +69,8 @@ def main():
     
     if st.sidebar.button('API設定'):
         st.session_state['page'] = 'API設定'
-    if st.sidebar.button('ドキュメント'):
-        st.session_state['page'] = 'ドキュメント'
+    if st.sidebar.button('使い方'):
+        st.session_state['page'] = '使い方'
 
     if st.session_state['page'] == 'Dataset作成':
         auto_dataset_producter_page()
@@ -80,7 +80,7 @@ def main():
         fine_tuning_page()
     elif st.session_state['page'] == 'API設定':
         setting_api_page()
-    elif st.session_state['page'] == 'ドキュメント':
+    elif st.session_state['page'] == '使い方':
         document_page()
 
 if __name__ == "__main__":
