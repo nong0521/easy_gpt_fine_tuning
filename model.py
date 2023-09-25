@@ -4,10 +4,9 @@ import streamlit as st
 
 class DatasetModel:
     def __init__(self):
-        self.cipher_suite = None  # 初期化
+        self.cipher_suite = None  
         self.api_key = ""
         
-        # キーが存在するか確認し、存在しなければ生成
         try:
             with open("cipher_key.txt", "rb") as f:
                 key = f.read()
@@ -18,7 +17,6 @@ class DatasetModel:
                 f.write(key)
             self.cipher_suite = Fernet(key)
 
-        # session stateでAPIキーがロードされているか確認
         if 'loaded api key' not in st.session_state:
             st.session_state['loaded api key'] = self.load_api_key()
         
