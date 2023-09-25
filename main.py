@@ -1,5 +1,6 @@
 import streamlit as st
 from view import auto_dataset_producter_page, saved_dataset_page,fine_tuning_page, setting_api_page, document_page
+from model import DatasetModel
 
 def main():
     st.set_page_config(
@@ -7,8 +8,7 @@ def main():
         page_icon="🧊",
     )
 
-    if 'page' not in st.session_state:
-        st.session_state['page'] = 'Dataset作成'
+    model = DatasetModel()
 
     if 'user messages saved' not in st.session_state:
         st.session_state['user messages saved'] = False
@@ -43,14 +43,30 @@ def main():
     if 'model_name' not in st.session_state:
         st.session_state['model_name'] = ''
 
+    if 'loaded api key' not in st.session_state:
+        st.session_state['loaded api key'] = model.load_api_key()
+
+    if 'is valid openai key' not in st.session_state:
+        st.session_state['is valid openai key'] = model.is_valid_openai_key(st.session_state['loaded api key'])
+
     st.sidebar.title("メニュー")
 
-    if st.sidebar.button('Dataset作成'):
-        st.session_state['page'] = 'Dataset作成'
-    if st.sidebar.button('Dataset編集'):
-        st.session_state['page'] = 'Dataset編集'
-    if st.sidebar.button('ファインチューニング'):
-        st.session_state['page'] = 'ファインチューニング'
+    if st.session_state['is valid openai key']:
+        default_page = 'Dataset作成'
+    else:
+        default_page = 'API設定'
+
+    if 'page' not in st.session_state:
+        st.session_state['page'] = default_page
+
+    if st.session_state['is valid openai key']:
+        if st.sidebar.button('Dataset作成'):
+            st.session_state['page'] = 'Dataset作成'
+        if st.sidebar.button('Dataset編集'):
+            st.session_state['page'] = 'Dataset編集'
+        if st.sidebar.button('ファインチューニング'):
+            st.session_state['page'] = 'ファインチューニング'
+    
     if st.sidebar.button('API設定'):
         st.session_state['page'] = 'API設定'
     if st.sidebar.button('ドキュメント'):
