@@ -83,6 +83,9 @@ def auto_dataset_producter_page():
                 for entry in st.session_state['dataset']:
                     st.session_state['latest dataset'].append(entry)
             
+    if not os.path.exists('dataset_folder'):
+        os.mkdir('dataset_folder')
+
     if st.session_state['latest dataset'] != []:
         if st.button("Datasetをリセット!"):
             st.session_state['latest dataset'] = []
@@ -91,14 +94,18 @@ def auto_dataset_producter_page():
 
         if len(st.session_state['latest dataset']) >= 10:
             st.session_state['dataset name'] = st.text_input("Datasetの名前を入力してください。", value=st.session_state['dataset name'])
+            
             if st.button("Datasetを保存!"):
-                if st.session_state['dataset name'] not in os.listdir('dataset_folder'):
-                    vm.save_dataset(st.session_state['dataset name'], st.session_state['latest dataset'])
-                    st.session_state['dataset name'] = ""
-                else:
-                    if st.button("Datasetを上書き"):
+                try:
+                    if st.session_state['dataset name'] not in os.listdir('dataset_folder'):
                         vm.save_dataset(st.session_state['dataset name'], st.session_state['latest dataset'])
                         st.session_state['dataset name'] = ""
+                    else:
+                        if st.button("Datasetを上書き"):
+                            vm.save_dataset(st.session_state['dataset name'], st.session_state['latest dataset'])
+                            st.session_state['dataset name'] = ""
+                except Exception as e:
+                    st.write(f"An error occurred: {e}")
 
         else:
             st.write("Datasetを10個以上作成してください。")
