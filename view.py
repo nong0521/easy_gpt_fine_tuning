@@ -139,9 +139,11 @@ def saved_dataset_page():
                         if st.form_submit_button("Datasetを更新"):
                             file_name = file_name.split('.')[0]
                             vm.save_dataset(file_name, contents)
+                            st.experimental_rerun()
                         if st.form_submit_button("Datasetを削除"):
                             os.remove(os.path.join(folder_name, file_name))
                             st.session_state['file_name'] = ''
+                            st.experimental_rerun()
 
     else:
         st.write("No folder found.")
@@ -167,6 +169,7 @@ def fine_tuning_page():
             status = openai.FineTuningJob.list(limit=1)
             st.write(status["data"][0]["status"])
             st.write(status)
+            st.experimental_rerun()
 
     else:
         st.write("No folder found.")
@@ -181,6 +184,7 @@ def fine_tuning_page():
             model_name = st.session_state["model_name"]
             openai.Model.delete(model_name)
             st.session_state["model_name"] = ""
+            st.experimental_rerun()
 
 def setting_api_page():
     st.header("Setting API")
@@ -191,6 +195,7 @@ def setting_api_page():
     if st.button("Save OpenAI API key!"):
         vm.on_save_api_key_clicked(api_key)
         st.session_state['api_key'] = api_key
+        st.experimental_rerun()
 
 def document_page():
     st.title("使い方")
