@@ -38,6 +38,7 @@ class DatasetModel:
                 f.write(encrypted_api_key)
             st.session_state['is valid openai key'] = True
             st.session_state['loaded api key'] = api_key
+            st.experimental_rerun()
         else:
             st.write("有効なAPIキーを入力してください")
 
