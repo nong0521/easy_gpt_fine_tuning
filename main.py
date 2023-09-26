@@ -44,7 +44,8 @@ def main():
         st.session_state['model_name'] = ''
 
     if 'loaded api key' not in st.session_state:
-        st.session_state['loaded api key'] = model.load_api_key()
+        #st.session_state['loaded api key'] = model.load_api_key()
+        st.session_state['loaded api key'] = ''
 
     if 'is valid openai key' not in st.session_state:
         st.session_state['is valid openai key'] = model.is_valid_openai_key(st.session_state['loaded api key'])

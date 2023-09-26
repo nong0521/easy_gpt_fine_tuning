@@ -46,7 +46,8 @@ Variables: length of the sentence, type of sentence, format of the sentence, con
             },
         ]
 
-        api_key = self.model.load_api_key()
+        #api_key = self.model.load_api_key()
+        api_key = st.session_state['loaded api key']
         llm = ChatOpenAI(openai_api_key=api_key, temperature=1.0, model_name="gpt-4", functions=functions, function_call={"name": "generate_human_messages"})
         result = llm(template.format_messages(rules=rules))
         additional_kwargs = result.additional_kwargs
@@ -58,7 +59,8 @@ Variables: length of the sentence, type of sentence, format of the sentence, con
         return human_message_list
         
     def generate_single_dataset(self, message, system_message="", human_message=""):
-        api_key = self.model.load_api_key()
+        #api_key = self.model.load_api_key()
+        api_key = st.session_state['loaded api key']
         chat = ChatOpenAI(openai_api_key=api_key, temperature=1.0, model_name="gpt-4")
         chat_prompt = ChatPromptTemplate.from_messages([
             ("system", system_message),
